@@ -10,8 +10,6 @@
 		<string>markdn</string>
 		<string>mmd</string>
 	</array>
-	<key>firstLineMatch</key>
-	<string>^\S.*?:\s*\S.*?\s*$</string>
 	<key>foldingStartMarker</key>
 	<string>(?x)
 		(&lt;(?i:head|body|table|thead|tbody|tfoot|tr|div|select|fieldset|style|script|ul|ol|form|dl)\b.*?&gt;
