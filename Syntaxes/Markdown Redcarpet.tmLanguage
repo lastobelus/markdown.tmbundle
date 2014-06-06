@@ -8,11 +8,13 @@
 		<string>mdown</string>
 		<string>markdown</string>
 		<string>markdn</string>
+		<string>Rmd</string>
+		<string>rmd</string>
 	</array>
 	<key>keyEquivalent</key>
 	<string>^~M</string>
 	<key>name</key>
-	<string>Markdown</string>
+	<string>Markdown Redcarpet</string>
 	<key>patterns</key>
 	<array>
 		<dict>
@@ -45,6 +47,34 @@
 				<dict>
 					<key>include</key>
 					<string>#raw_block</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#fenced_block_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#fenced_block_javascript</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#fenced_block_coffee</string>
+				</dict>
+        <dict>
+          <key>include</key>
+          <string>#fenced_block_shell</string>
+        </dict>
+        <dict>
+          <key>include</key>
+					<string>#fenced_block_haml</string>
+        </dict>
+				<dict>
+					<key>include</key>
+					<string>#fenced_block_r</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#fenced_block</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -84,6 +114,111 @@
 					</array>
 					<key>while</key>
 					<string>(^|\G)(&gt;) ?</string>
+				</dict>
+				<key>fenced_block</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})[ ]*(\w+)?$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown.fenced</string>
+				</dict>
+        <key>fenced_block_coffee</key>
+        <dict>
+          <key>begin</key>
+          <string>(^|\G)([`]{3})[ ]*(?:coffee|coffeescript)$</string>
+          <key>end</key>
+          <string>(^|\G)([`]{3})($|\z)</string>
+          <key>name</key>
+          <string>markup.raw.block.markdown.fenced</string>
+          <key>patterns</key>
+          <array>
+            <dict>
+              <key>include</key>
+              <string>source.coffee</string>
+            </dict>
+          </array>
+        </dict>
+				<key>fenced_block_haml</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})[ ]*(?:haml)$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown.fenced</string>
+          <key>patterns</key>
+          <array>
+            <dict>
+              <key>include</key>
+							<string>text.haml</string>
+            </dict>
+          </array>
+        </dict>
+				<key>fenced_block_r</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})\{*[ ]*(?:r|R).*\}*$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>source.r.embedded.rmarkdown</string>
+					<key>patterns</key>
+          <array>
+            <dict>
+              <key>include</key>
+              <string>source.r</string>
+            </dict>
+          </array>
+				</dict>
+				<key>fenced_block_javascript</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})[ ]*(?:js|javascript)$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown.fenced</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.shell</string>
+						</dict>
+					</array>
+				</dict>
+				<key>fenced_block_ruby</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})[ ]*ruby$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown.fenced</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.ruby</string>
+						</dict>
+					</array>
+				</dict>
+				<key>fenced_block_shell</key>
+				<dict>
+					<key>begin</key>
+					<string>(^|\G)([`]{3})[ ]*(?:bash|shell|sh)$</string>
+					<key>end</key>
+					<string>(^|\G)([`]{3})($|\z)</string>
+					<key>name</key>
+					<string>markup.raw.block.markdown.fenced</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.shell</string>
+						</dict>
+					</array>
 				</dict>
 				<key>heading</key>
 				<dict>
@@ -398,6 +533,10 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#code-inline-r</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#raw</string>
 				</dict>
 				<dict>
@@ -459,7 +598,7 @@
 																			# Raw
 									  | \\[\\`*_{}\[\]()#.!+\-&gt;]?+			# Escapes
 									  | \[
-										(				
+										(
 										        (?&lt;square&gt;					# Named group
 													[^\[\]\\]				# Match most chars
 										          | \\.						# Escaped chars
@@ -582,6 +721,38 @@
 					<key>name</key>
 					<string>meta.other.valid-bracket.markdown</string>
 				</dict>
+				<key>code-inline-r</key>
+				<dict>
+					<key>begin</key>
+					<string>(`[r|R][ ]+)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(`)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.raw.markdown</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>source.r.embedded.rmarkdown</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>source.r</string>
+						</dict>
+					</array>
+				</dict>
 				<key>escape</key>
 				<dict>
 					<key>match</key>
@@ -672,7 +843,7 @@
 					<key>match</key>
 					<string>(?x:
 						\!							# Images start with !
-						(\[)((?&lt;square&gt;[^\[\]\\]|\\.|\[\g&lt;square&gt;*+\])*+)(\])	
+						(\[)((?&lt;square&gt;[^\[\]\\]|\\.|\[\g&lt;square&gt;*+\])*+)(\])
 													# Match the link text.
 						([ ])?						# Space not allowed
 						(\()						# Opening paren for url
@@ -740,7 +911,7 @@
 																			# Raw
 									  | \\[\\`*_{}\[\]()#.!+\-&gt;]?+			# Escapes
 									  | \[
-										(				
+										(
 										        (?&lt;square&gt;					# Named group
 													[^\[\]\\]				# Match most chars
 										          | \\.						# Escaped chars
@@ -984,7 +1155,7 @@
 					</dict>
 					<key>match</key>
 					<string>(?x:
-						(\[)((?&lt;square&gt;[^\[\]\\]|\\.|\[\g&lt;square&gt;*+\])*+)(\])	
+						(\[)((?&lt;square&gt;[^\[\]\\]|\\.|\[\g&lt;square&gt;*+\])*+)(\])
 													# Match the link text.
 						([ ])?						# Space not allowed
 						(\()						# Opening paren for url
@@ -1093,7 +1264,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(`+)([^`]|(?!(?&lt;!`)\1(?!`))`)*+(\1)</string>
+					<string>(`+(?!([r|R][ ]+)))([^`]|(?!(?&lt;!`)\1(?!`))`)*+(\1)</string>
 					<key>name</key>
 					<string>markup.raw.inline.markdown</string>
 				</dict>
@@ -1101,8 +1272,8 @@
 		</dict>
 	</dict>
 	<key>scopeName</key>
-	<string>text.html.markdown</string>
+	<string>text.html.markdown.redcarpet</string>
 	<key>uuid</key>
-	<string>0A1D9874-B448-11D9-BD50-000D93B6E43C</string>
+	<string>BE79A69A-B9F5-4BCD-9068-893496E86663</string>
 </dict>
 </plist>
